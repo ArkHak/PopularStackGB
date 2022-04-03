@@ -7,4 +7,15 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="color_background_login_centerColor">#02A5F0</color>
+    <color name="color_background_login_editText">#FFFFFFFF</color>
+    <color name="color_background_login_endsColor">#4FC3FF</color>
+    <color name="color_background_button_login">#f48fb1</color>
+    <color name="color_title_text">#FDFFFFFF</color>
+    <color name="color_text">#FF000000</color>
+    <color name="color_text_hint">#66000000</color>
+
+    <color name="color_ProgressIndicator_indicator">#FFf48fb1</color>
+    <color name="color_ProgressIndicator_track">#44f48fb1</color>
 </resources>
