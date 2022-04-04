@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login_background"
+    android:paddingHorizontal="@dimen/login_general_padding_h"
+    tools:context=".LoginActivity">
+
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/indicatorLoading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="gone"
+        app:indicatorColor="@color/color_ProgressIndicator_indicator"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:trackColor="@color/color_ProgressIndicator_track" />
+
+    <ImageView
+        android:id="@+id/img_login"
+        android:layout_width="@dimen/login_image_layout_w"
+        android:layout_height="@dimen/login_image_layout_h"
+        android:contentDescription="@string/text_content_description_image_login"
+        android:src="@drawable/img_login"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.2" />
+
+    <TextView
+        android:id="@+id/title_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text_title_login"
+        android:textColor="@color/color_title_text"
+        android:textSize="@dimen/login_title_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/img_login" />
+
+    <EditText
+        android:id="@+id/username_edit_text"
+        style="@style/login_layout_fields_input"
+        android:layout_marginTop="@dimen/username_edit_text_size"
+        android:drawableStart="@drawable/ic_login"
+        android:hint="@string/text_hint_field_username"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_login" />
+
+    <EditText
+        android:id="@+id/password_edit_text"
+        style="@style/login_layout_fields_input"
+        android:layout_marginTop="@dimen/password_edit_text_margin_t"
+        android:drawableStart="@drawable/ic_password"
+        android:hint="@string/text_hint_field_password"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/username_edit_text" />
+
+    <TextView
+        android:id="@+id/forgot_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/forgot_password_margin_t"
+        android:padding="@dimen/forgot_password_padding"
+        android:text="@string/text_forgot_password"
+        android:textColor="@color/white"
+        android:textSize="@dimen/forgot_padding_text_size"
+        app:layout_constraintEnd_toEndOf="@id/password_edit_text"
+        app:layout_constraintTop_toBottomOf="@id/password_edit_text" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_login"
+        style="@style/login_layout_buttons"
+        android:background="@drawable/background_button_login"
+        android:text="@string/text_btn_log_in"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/forgot_password" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_sing_up"
+        style="@style/login_layout_buttons"
+        android:layout_marginTop="@dimen/btn_sing_up_margin_t"
+        android:background="@drawable/background_button_sing_up"
+        android:text="@string/text_btn_sign_up"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_login" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

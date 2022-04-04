@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="login_image_layout_w">120dp</dimen>
+    <dimen name="login_image_layout_h">120dp</dimen>
+    <dimen name="login_general_padding_h">20dp</dimen>
+    <dimen name="login_title_text_size">42sp</dimen>
+    <dimen name="username_edit_text_size">24dp</dimen>
+    <dimen name="login_layout_edit_text_drawable_padding">10dp</dimen>
+    <dimen name="login_layout_edit_text_padding">10dp</dimen>
+    <dimen name="password_edit_text_margin_t">14dp</dimen>
+    <dimen name="forgot_password_margin_t">6dp</dimen>
+    <dimen name="forgot_password_padding">10dp</dimen>
+    <dimen name="forgot_padding_text_size">16sp</dimen>
+    <dimen name="btn_text_size">21sp</dimen>
+    <dimen name="btn_sing_up_margin_t">14dp</dimen>
+</resources>
