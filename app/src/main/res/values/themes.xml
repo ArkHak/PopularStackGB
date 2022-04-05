@@ -2,11 +2,11 @@
     <!-- Base application theme. -->
     <style name="Theme.PopularStackGB" parent="Theme.MaterialComponents.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/color_background_login_endsColor</item>
-        <item name="colorPrimaryVariant">@color/color_background_login_centerColor</item>
+        <item name="colorPrimary">@color/background_login_ends</item>
+        <item name="colorPrimaryVariant">@color/background_login_center</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/color_background_button_login</item>
+        <item name="colorSecondary">@color/background_button_login</item>
         <item name="colorSecondaryVariant">#BBf48fb1</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->

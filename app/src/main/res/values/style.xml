@@ -4,19 +4,19 @@
     <style name="login_layout_fields_input">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@drawable/field_edit_background</item>
-        <item name="android:drawablePadding">@dimen/login_layout_edit_text_drawable_padding</item>
-        <item name="android:padding">@dimen/login_layout_edit_text_padding</item>
+        <item name="android:background">@drawable/background_field_edit_text</item>
+        <item name="android:drawablePadding">@dimen/login_layout_drawable_padding_edit_text</item>
+        <item name="android:padding">@dimen/login_layout_padding_edit_text</item>
         <item name="android:singleLine">true</item>
-        <item name="android:textColor">@color/color_text</item>
-        <item name="android:textColorHint">@color/color_text_hint</item>
+        <item name="android:textColor">@color/text_edit_text</item>
+        <item name="android:textColorHint">@color/text_hint_edit_text</item>
     </style>
 
     <style name="login_layout_buttons">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textAllCaps">false</item>
-        <item name="android:textSize">@dimen/btn_text_size</item>
+        <item name="android:textSize">@dimen/action_text_size_button</item>
     </style>
 
 </resources>
