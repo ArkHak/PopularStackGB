@@ -1,11 +1,12 @@
 package com.example.popularstackgb.ui.login
 
 import com.example.popularstackgb.domain.LoginUsecase
+import com.example.popularstackgb.utils.ErrorCodes
 
 class LoginPresenter(private val loginUsecase: LoginUsecase) : LoginContract.Presenter {
     private var view: LoginContract.View? = null
     private var isSuccess: Boolean = false
-    private var errorText: String = NOT_ERROR
+    private var errorText: String = ErrorCodes.NO_ERRORS.textError
     private var showError: Boolean = false
 
     override fun onAttach(view: LoginContract.View) {
@@ -27,19 +28,19 @@ class LoginPresenter(private val loginUsecase: LoginUsecase) : LoginContract.Pre
                     view?.setSuccess()
                     isSuccess = true
                 } else {
-                    showError(ERROR_INVALID_LOGIN_OR_PASSWORD)
+                    showError(ErrorCodes.ERROR_INVALID_LOGIN_OR_PASSWORD.textError)
                     isSuccess = false
                 }
             }
         } else {
-            showError(SERVER_IS_NOT_AVAILABLE)
+            showError(ErrorCodes.SERVER_IS_NOT_AVAILABLE.textError)
         }
     }
 
     override fun onForgotPassword(login: String) {
         if (loginUsecase.checkConnect()) {
             if (login.isBlank()) {
-                showError(EMPTY_FIELDS)
+                showError(ErrorCodes.EMPTY_FIELDS.textError)
             } else {
                 if (loginUsecase.checkAccount(login)) {
                     view?.showLoading()
@@ -48,23 +49,23 @@ class LoginPresenter(private val loginUsecase: LoginUsecase) : LoginContract.Pre
                         view?.passwordReminderSuccess(password)
                     }
                 } else {
-                    showError(USER_DOES_NOT_EXIST)
+                    showError(ErrorCodes.USER_DOES_NOT_EXIST.textError)
                 }
             }
         } else {
-            showError(SERVER_IS_NOT_AVAILABLE)
+            showError(ErrorCodes.SERVER_IS_NOT_AVAILABLE.textError)
         }
     }
 
     override fun onSignUp(login: String, password: String) {
         if (loginUsecase.checkConnect()) {
             if (login.isBlank() || password.isBlank()) {
-                showError(FILL_FIELDS)
+                showError(ErrorCodes.FILL_FIELDS.textError)
             } else {
                 view?.showLoading()
                 if (loginUsecase.checkAccount(login)) {
                     view?.hideLoading()
-                    showError(USER_ALREADY_EXISTS)
+                    showError(ErrorCodes.USER_ALREADY_EXISTS.textError)
                 } else {
                     loginUsecase.addAccount(login, password) { result ->
                         view?.hideLoading()
@@ -76,7 +77,7 @@ class LoginPresenter(private val loginUsecase: LoginUsecase) : LoginContract.Pre
                 }
             }
         } else {
-            showError(SERVER_IS_NOT_AVAILABLE)
+            showError(ErrorCodes.SERVER_IS_NOT_AVAILABLE.textError)
         }
     }
 
@@ -84,15 +85,5 @@ class LoginPresenter(private val loginUsecase: LoginUsecase) : LoginContract.Pre
         showError = true
         errorText = error
         view?.setError(errorText)
-    }
-
-    companion object {
-        private const val ERROR_INVALID_LOGIN_OR_PASSWORD = "Invalid username or password"
-        private const val SERVER_IS_NOT_AVAILABLE = "No connection to server"
-        private const val EMPTY_FIELDS = "Enter your login in the username field"
-        private const val USER_DOES_NOT_EXIST = "This user does not exist"
-        private const val FILL_FIELDS = "Fill in the username and password fields"
-        private const val USER_ALREADY_EXISTS = "A user with the same name already exists"
-        private const val NOT_ERROR = ""
     }
 }
