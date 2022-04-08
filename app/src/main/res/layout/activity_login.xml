@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/login_background"
     android:paddingHorizontal="@dimen/login_layout_padding_height"
-    tools:context=".LoginActivity">
+    tools:context=".ui.login.LoginActivity">
 
 
     <com.google.android.material.progressindicator.CircularProgressIndicator

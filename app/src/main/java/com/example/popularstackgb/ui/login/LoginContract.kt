@@ -1,4 +1,4 @@
-package com.example.popularstackgb
+package com.example.popularstackgb.ui.login
 
 import android.os.Handler
 import androidx.annotation.MainThread
@@ -26,17 +26,16 @@ class LoginContract {
     }
 
     interface Presenter {
+        @MainThread
         fun onAttach(view: View)
-        fun onLogin(login: String, password: String)
-        fun onForgotPassword(login: String)
-        fun onSignUp(login: String, password: String)
-    }
 
-    interface Model {
-        fun checkConnect(): Boolean
-        fun checkCredentials(login: String, password: String): Boolean
-        fun checkAccount(login: String): Boolean
-        fun passwordReminder(login: String): String
-        fun addAccount(login: String, password: String)
+        @MainThread
+        fun onLogin(login: String, password: String)
+
+        @MainThread
+        fun onForgotPassword(login: String)
+
+        @MainThread
+        fun onSignUp(login: String, password: String)
     }
 }

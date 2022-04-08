@@ -1,4 +1,4 @@
-package com.example.popularstackgb
+package com.example.popularstackgb.ui.login
 
 import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +10,8 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.annotation.MainThread
 import androidx.core.view.isVisible
+import com.example.popularstackgb.R
+import com.example.popularstackgb.app
 import com.example.popularstackgb.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity(), LoginContract.View {
@@ -101,7 +103,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
 
     private fun initPresenter(): LoginPresenter {
         val presenter = lastCustomNonConfigurationInstance as? LoginPresenter
-        return presenter ?: LoginPresenter()
+        return presenter ?: LoginPresenter(app.loginUsecase)
     }
 
     override fun onRetainCustomNonConfigurationInstance(): Any? {
