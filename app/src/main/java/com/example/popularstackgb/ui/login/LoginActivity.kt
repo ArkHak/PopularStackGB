@@ -1,4 +1,4 @@
-package com.example.popularstackgb
+package com.example.popularstackgb.ui.login
 
 import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +10,8 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.annotation.MainThread
 import androidx.core.view.isVisible
+import com.example.popularstackgb.R
+import com.example.popularstackgb.app
 import com.example.popularstackgb.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity(), LoginContract.View {
@@ -24,18 +26,18 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
         presenter = initPresenter()
         presenter?.onAttach(this)
 
-        binding.btnLogin.setOnClickListener {
+        binding.actionLoginButton.setOnClickListener {
             presenter?.onLogin(
                 binding.usernameEditText.text.toString(),
                 binding.passwordEditText.text.toString()
             )
         }
 
-        binding.forgotPassword.setOnClickListener {
+        binding.actionForgotPasswordTextView.setOnClickListener {
             presenter?.onForgotPassword(binding.usernameEditText.text.toString())
         }
 
-        binding.btnSingUp.setOnClickListener {
+        binding.actionSingUpButton.setOnClickListener {
             presenter?.onSignUp(
                 binding.usernameEditText.text.toString(),
                 binding.passwordEditText.text.toString()
@@ -45,18 +47,20 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
 
     @MainThread
     override fun setSuccess() {
-        binding.titleLogin.text = getString(R.string.login_success)
-        binding.indicatorLoading.isVisible = false
+        binding.titleLoginTextView.text = getString(R.string.result_login_success)
+        binding.loginLoadingProgressIndicator.isVisible = false
         hideInputFields()
         hideButtons()
     }
 
+    @MainThread
     private fun hideButtons() {
-        binding.forgotPassword.isVisible = false
-        binding.btnLogin.isVisible = false
-        binding.btnSingUp.isVisible = false
+        binding.actionForgotPasswordTextView.isVisible = false
+        binding.actionLoginButton.isVisible = false
+        binding.actionSingUpButton.isVisible = false
     }
 
+    @MainThread
     private fun hideInputFields() {
         binding.usernameEditText.isVisible = false
         binding.passwordEditText.isVisible = false
@@ -69,19 +73,19 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
 
     @MainThread
     override fun showLoading() {
-        binding.btnLogin.isEnabled = false
-        binding.btnSingUp.isEnabled = false
-        binding.forgotPassword.isEnabled = false
-        binding.indicatorLoading.isVisible = true
+        binding.actionLoginButton.isEnabled = false
+        binding.actionSingUpButton.isEnabled = false
+        binding.actionForgotPasswordTextView.isEnabled = false
+        binding.loginLoadingProgressIndicator.isVisible = true
         hideKeyboard(this)
     }
 
     @MainThread
     override fun hideLoading() {
-        binding.btnLogin.isEnabled = true
-        binding.btnSingUp.isEnabled = true
-        binding.forgotPassword.isEnabled = true
-        binding.indicatorLoading.isVisible = false
+        binding.actionLoginButton.isEnabled = true
+        binding.actionSingUpButton.isEnabled = true
+        binding.actionForgotPasswordTextView.isEnabled = true
+        binding.loginLoadingProgressIndicator.isVisible = false
     }
 
     override fun getHandler(): Handler {
@@ -99,7 +103,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
 
     private fun initPresenter(): LoginPresenter {
         val presenter = lastCustomNonConfigurationInstance as? LoginPresenter
-        return presenter ?: LoginPresenter()
+        return presenter ?: LoginPresenter(app.loginUsecase)
     }
 
     override fun onRetainCustomNonConfigurationInstance(): Any? {
