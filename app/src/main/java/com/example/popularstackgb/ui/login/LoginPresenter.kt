@@ -1,12 +1,12 @@
 package com.example.popularstackgb.ui.login
 
 import com.example.popularstackgb.domain.LoginUsecase
-import com.example.popularstackgb.utils.ErrorCodes
+import com.example.popularstackgb.ui.utils.ErrorCodes
 
 class LoginPresenter(private val loginUsecase: LoginUsecase) : LoginContract.Presenter {
     private var view: LoginContract.View? = null
     private var isSuccess: Boolean = false
-    private var errorText: String = ErrorCodes.NO_ERRORS.textError
+    private var codeError: Int = ErrorCodes.NO_ERRORS.codeError
     private var showError: Boolean = false
 
     override fun onAttach(view: LoginContract.View) {
@@ -15,7 +15,7 @@ class LoginPresenter(private val loginUsecase: LoginUsecase) : LoginContract.Pre
             view.setSuccess()
         } else {
             if (showError)
-                view.setError(errorText)
+                view.setError(codeError)
         }
     }
 
@@ -28,19 +28,19 @@ class LoginPresenter(private val loginUsecase: LoginUsecase) : LoginContract.Pre
                     view?.setSuccess()
                     isSuccess = true
                 } else {
-                    showError(ErrorCodes.ERROR_INVALID_LOGIN_OR_PASSWORD.textError)
+                    showError(ErrorCodes.ERROR_INVALID_LOGIN_OR_PASSWORD.codeError)
                     isSuccess = false
                 }
             }
         } else {
-            showError(ErrorCodes.SERVER_IS_NOT_AVAILABLE.textError)
+            showError(ErrorCodes.SERVER_IS_NOT_AVAILABLE.codeError)
         }
     }
 
     override fun onForgotPassword(login: String) {
         if (loginUsecase.checkConnect()) {
             if (login.isBlank()) {
-                showError(ErrorCodes.EMPTY_FIELDS.textError)
+                showError(ErrorCodes.EMPTY_FIELDS.codeError)
             } else {
                 if (loginUsecase.checkAccount(login)) {
                     view?.showLoading()
@@ -49,23 +49,23 @@ class LoginPresenter(private val loginUsecase: LoginUsecase) : LoginContract.Pre
                         view?.passwordReminderSuccess(password)
                     }
                 } else {
-                    showError(ErrorCodes.USER_DOES_NOT_EXIST.textError)
+                    showError(ErrorCodes.USER_DOES_NOT_EXIST.codeError)
                 }
             }
         } else {
-            showError(ErrorCodes.SERVER_IS_NOT_AVAILABLE.textError)
+            showError(ErrorCodes.SERVER_IS_NOT_AVAILABLE.codeError)
         }
     }
 
     override fun onSignUp(login: String, password: String) {
         if (loginUsecase.checkConnect()) {
             if (login.isBlank() || password.isBlank()) {
-                showError(ErrorCodes.FILL_FIELDS.textError)
+                showError(ErrorCodes.FILL_FIELDS.codeError)
             } else {
                 view?.showLoading()
                 if (loginUsecase.checkAccount(login)) {
                     view?.hideLoading()
-                    showError(ErrorCodes.USER_ALREADY_EXISTS.textError)
+                    showError(ErrorCodes.USER_ALREADY_EXISTS.codeError)
                 } else {
                     loginUsecase.addAccount(login, password) { result ->
                         view?.hideLoading()
@@ -77,13 +77,13 @@ class LoginPresenter(private val loginUsecase: LoginUsecase) : LoginContract.Pre
                 }
             }
         } else {
-            showError(ErrorCodes.SERVER_IS_NOT_AVAILABLE.textError)
+            showError(ErrorCodes.SERVER_IS_NOT_AVAILABLE.codeError)
         }
     }
 
-    private fun showError(error: String) {
+    private fun showError(codeError: Int) {
         showError = true
-        errorText = error
-        view?.setError(errorText)
+        this.codeError = codeError
+        view?.setError(this.codeError)
     }
 }

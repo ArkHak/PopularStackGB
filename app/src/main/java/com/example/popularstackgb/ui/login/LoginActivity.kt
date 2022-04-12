@@ -13,6 +13,7 @@ import androidx.core.view.isVisible
 import com.example.popularstackgb.R
 import com.example.popularstackgb.app
 import com.example.popularstackgb.databinding.ActivityLoginBinding
+import com.example.popularstackgb.res
 
 class LoginActivity : AppCompatActivity(), LoginContract.View {
     private lateinit var binding: ActivityLoginBinding
@@ -67,8 +68,9 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
     }
 
     @MainThread
-    override fun setError(error: String) {
-        Toast.makeText(this, "Error: $error", Toast.LENGTH_SHORT).show()
+    override fun setError(errorCode: Int) {
+        val textError = res.getString(errorCode)
+        Toast.makeText(this, "Error: $textError", Toast.LENGTH_SHORT).show()
     }
 
     @MainThread

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PopularStackGB</string>
+    <string name="text_content_description_poster_login_image_view">Постер авторизации</string>
+    <string name="text_title_login_text_view">Авторизация</string>
+    <string name="text_hint_field_username_edit_text">Имя пользователя</string>
+    <string name="text_hint_field_password_edit_text">Пароль</string>
+    <string name="text_action_forgot_password_text_view">Забыли пароль?</string>
+    <string name="text_action_log_in_button">Войти</string>
+    <string name="text_action_sign_up_button">Регистрация</string>
+    <string name="result_login_success">Вы авторизованы!</string>
+    <string name="error_invalid_login_or_password">Неверные \'имя пользователя\' или \'пароль\'</string>
+    <string name="server_is_not_available">Сервер недоступен</string>
+    <string name="error_empty_fields">Введите свой логин в поле \'Имя пользователя\'</string>
+    <string name="error_user_does_not_exist">Такого пользователя не существует</string>
+    <string name="error_fill_fields">Заполните поля \'Имя пользователя\' и \'Пароль\'</string>
+    <string name="error_user_already_exist">Пользователь с таким именем уже существует</string>
+    <string name="error_no_found">Не найдено</string>
+</resources>

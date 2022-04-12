@@ -10,7 +10,7 @@ class LoginContract {
         fun setSuccess()
 
         @MainThread
-        fun setError(error: String)
+        fun setError(errorCode: Int)
 
         @MainThread
         fun showLoading()
