@@ -15,39 +15,65 @@ import com.example.popularstackgb.app
 import com.example.popularstackgb.databinding.ActivityLoginBinding
 import com.example.popularstackgb.res
 
-class LoginActivity : AppCompatActivity(), LoginContract.View {
+class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
-    private var presenter: LoginContract.Presenter? = null
+    private var viewModel: LoginContract.ViewModel? = null
+    private val handler: Handler by lazy { Handler(Looper.getMainLooper()) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        presenter = initPresenter()
-        presenter?.onAttach(this)
+        viewModel = initViewModel()
 
         binding.actionLoginButton.setOnClickListener {
-            presenter?.onLogin(
+            viewModel?.onLogin(
                 binding.usernameEditText.text.toString(),
                 binding.passwordEditText.text.toString()
             )
         }
 
         binding.actionForgotPasswordTextView.setOnClickListener {
-            presenter?.onForgotPassword(binding.usernameEditText.text.toString())
+            viewModel?.onForgotPassword(binding.usernameEditText.text.toString())
         }
 
         binding.actionSingUpButton.setOnClickListener {
-            presenter?.onSignUp(
+            viewModel?.onSignUp(
                 binding.usernameEditText.text.toString(),
                 binding.passwordEditText.text.toString()
             )
         }
+
+        viewModel?.shouldShowLoading?.subscribe(handler) { shouldShow ->
+            if (shouldShow == true) {
+                showLoading()
+            } else {
+                hideLoading()
+            }
+        }
+
+        viewModel?.isLoginSuccess?.subscribe(handler) { isLogin ->
+            if (isLogin == true) {
+                setSuccess()
+            }
+        }
+
+        viewModel?.errorCode?.subscribe(handler) { code ->
+            code?.let { setError(code) }
+        }
+
+        viewModel?.isAddAccountSuccess?.subscribe(handler) { username ->
+            username?.let { addAccountSuccess(it) }
+        }
+
+        viewModel?.isPasswordReminderSuccess?.subscribe(handler) { password ->
+            password?.let { passwordReminderSuccess(it) }
+        }
+
     }
 
-    @MainThread
-    override fun setSuccess() {
+    private fun setSuccess() {
         binding.titleLoginTextView.text = getString(R.string.result_login_success)
         binding.loginLoadingProgressIndicator.isVisible = false
         hideInputFields()
@@ -67,14 +93,12 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
         binding.passwordEditText.isVisible = false
     }
 
-    @MainThread
-    override fun setError(errorCode: Int) {
+    private fun setError(errorCode: Int) {
         val textError = res.getString(errorCode)
         Toast.makeText(this, "Error: $textError", Toast.LENGTH_SHORT).show()
     }
 
-    @MainThread
-    override fun showLoading() {
+    private fun showLoading() {
         binding.actionLoginButton.isEnabled = false
         binding.actionSingUpButton.isEnabled = false
         binding.actionForgotPasswordTextView.isEnabled = false
@@ -82,34 +106,29 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
         hideKeyboard(this)
     }
 
-    @MainThread
-    override fun hideLoading() {
+    private fun hideLoading() {
         binding.actionLoginButton.isEnabled = true
         binding.actionSingUpButton.isEnabled = true
         binding.actionForgotPasswordTextView.isEnabled = true
         binding.loginLoadingProgressIndicator.isVisible = false
     }
 
-    override fun getHandler(): Handler {
-        return Handler(Looper.getMainLooper())
-    }
-
-    override fun passwordReminderSuccess(password: String) {
+    private fun passwordReminderSuccess(password: String) {
         Toast.makeText(this, "Password: $password", Toast.LENGTH_SHORT).show()
     }
 
-    override fun addAccountSuccess(login: String) {
+    private fun addAccountSuccess(login: String) {
         Toast.makeText(this, "$login was created", Toast.LENGTH_SHORT).show()
         cleaning()
     }
 
-    private fun initPresenter(): LoginPresenter {
-        val presenter = lastCustomNonConfigurationInstance as? LoginPresenter
-        return presenter ?: LoginPresenter(app.loginUsecase)
+    private fun initViewModel(): LoginViewModel {
+        val viewModel = lastCustomNonConfigurationInstance as? LoginViewModel
+        return viewModel ?: LoginViewModel(app.loginUsecase)
     }
 
     override fun onRetainCustomNonConfigurationInstance(): Any? {
-        return presenter
+        return viewModel
     }
 
     private fun cleaning() {
@@ -125,5 +144,14 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
             view = View(activity)
         }
         imm.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel?.isLoginSuccess?.unsubscribeAll()
+        viewModel?.isPasswordReminderSuccess?.unsubscribeAll()
+        viewModel?.isAddAccountSuccess?.unsubscribeAll()
+        viewModel?.errorCode?.unsubscribeAll()
+        viewModel?.shouldShowLoading?.unsubscribeAll()
     }
 }

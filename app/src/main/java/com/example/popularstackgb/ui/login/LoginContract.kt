@@ -1,33 +1,17 @@
 package com.example.popularstackgb.ui.login
 
-import android.os.Handler
 import androidx.annotation.MainThread
+import com.example.popularstackgb.utils.Publisher
+import com.example.popularstackgb.utils.SinglePublisher
 
-class LoginContract {
+interface LoginContract {
 
-    interface View {
-        @MainThread
-        fun setSuccess()
-
-        @MainThread
-        fun setError(errorCode: Int)
-
-        @MainThread
-        fun showLoading()
-
-        @MainThread
-        fun hideLoading()
-
-        @MainThread
-        fun getHandler(): Handler
-
-        fun passwordReminderSuccess(password: String)
-        fun addAccountSuccess(login: String)
-    }
-
-    interface Presenter {
-        @MainThread
-        fun onAttach(view: View)
+    interface ViewModel {
+        val shouldShowLoading: Publisher<Boolean>
+        val isLoginSuccess: Publisher<Boolean>
+        val errorCode: SinglePublisher<Int?>
+        val isAddAccountSuccess: SinglePublisher<String>
+        val isPasswordReminderSuccess: SinglePublisher<String>
 
         @MainThread
         fun onLogin(login: String, password: String)
