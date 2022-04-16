@@ -9,4 +9,12 @@
     <string name="text_action_sign_up_button">Sign Up</string>
 
     <string name="result_login_success">You are logged in!</string>
+    <string name="no_error" translatable="false"> </string>
+    <string name="error_invalid_login_or_password">Invalid \'username\' or \'password\'</string>
+    <string name="server_is_not_available">No connection to server</string>
+    <string name="error_empty_fields">Enter your login in the \'username\' field</string>
+    <string name="error_user_does_not_exist">This user does not exist</string>
+    <string name="error_fill_fields">Fill in the \'username\' and \'password\' fields</string>
+    <string name="error_user_already_exist">This user already exists</string>
+    <string name="error_no_found">No found</string>
 </resources>

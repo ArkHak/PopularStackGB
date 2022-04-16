@@ -2,7 +2,7 @@ package com.example.popularstackgb.data.loginapi
 
 import com.example.popularstackgb.domain.LoginApi
 import com.example.popularstackgb.domain.entities.UserProfile
-import com.example.popularstackgb.utils.ErrorCodes
+import com.example.popularstackgb.ui.utils.ErrorCodes
 
 class MockLoginApiImpl : LoginApi {
 
@@ -27,7 +27,7 @@ class MockLoginApiImpl : LoginApi {
         mockRepo.forEach { user ->
             if (user.login == username) return user.password
         }
-        return ErrorCodes.NO_FOUND.textError
+        return ErrorCodes.NO_FOUND.codeError.toString()
     }
 
     override fun checkAccount(username: String): Boolean {
